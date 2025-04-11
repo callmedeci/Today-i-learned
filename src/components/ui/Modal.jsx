@@ -28,7 +28,7 @@ export function useModalContext() {
 
 function Overlay({ children }) {
   return (
-    <div className='fixed top-0 right-0 h-full w-full p-5 backdrop-blur-md'>
+    <div className='fixed top-0 right-0 h-full w-full p-3 backdrop-blur-md md:p-5'>
       {children}
     </div>
   );
@@ -47,7 +47,7 @@ function Window({ children, modalId, title }) {
 
   return createPortal(
     <Overlay>
-      <section className='relative mx-auto w-full max-w-4xl rounded-lg bg-neutral-700 p-7 shadow'>
+      <section className='relative mx-auto w-full max-w-4xl rounded-lg bg-neutral-700 p-5 shadow md:p-7'>
         <div className='mb-4 flex items-center justify-between'>
           <h3 className='font-sono-extra-bold text-2xl uppercase'> {title}</h3>
 

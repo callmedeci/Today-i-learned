@@ -75,7 +75,7 @@ function FactsItem({ fact }) {
         </Link>
       </p>
 
-      <div className='flex w-full flex-row items-center justify-end gap-3 sm:text-lg'>
+      <div className='flex w-full flex-row items-center justify-end gap-3 text-xs sm:text-base md:text-lg'>
         <span
           className={`${categoryColor(
             category,
