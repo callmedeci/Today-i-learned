@@ -3,9 +3,9 @@ import { cn } from '@/lib/utils';
 function Input({ className, name, error, variant = 'primary', ...props }) {
   const style = {
     primary:
-      'bg-neutral-500 text-xl text-neutral-300 placeholder:text-neutral-300/50 focus:ring-neutral-400',
+      'bg-neutral-500 text-sm sm:text-base md:text-xl text-neutral-300 placeholder:text-neutral-300/50 focus:ring-neutral-400',
     secondary:
-      'bg-neutral-700 text-lg xl:text-xl text-neutral-300 placeholder:text-neutral-400/50 focus:ring-neutral-500',
+      'bg-neutral-700 text-sm sm:text-base md:text-xl text-neutral-300 placeholder:text-neutral-400/50 focus:ring-neutral-500',
   };
 
   return (
