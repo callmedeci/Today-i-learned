@@ -9,7 +9,7 @@ function FactsList() {
   if (isPending) return <Loading />;
 
   return (
-    <m.ul className='scrollbar flex h-132 flex-col gap-5 overflow-y-scroll rounded-xl shadow lg:col-span-10'>
+    <m.ul className='scrollbar flex h-132 w-full flex-col gap-5 overflow-y-scroll rounded-xl shadow lg:col-span-10'>
       {facts.length === 0 ? (
         <li className='flex max-w-xs items-center gap-1 self-center text-center text-lg font-semibold text-neutral-300'>
           No facts found for related category! Try other ones ;)
