@@ -13,13 +13,13 @@ function Button({
 
   const activeStyle = '-rotate-1 -translate-y-0.5 scale-105';
 
-  const variantStyle = {
+  const style = {
     primary: `bg-neutral-600 font-semibold min-h-12 rounded-full shadow text-neutral-100 focus:ring-2 focus:ring-neutral-500 hover:ring-2 hover:ring-neutral-500 ${scaleTransition} ${isActive && activeStyle}`,
 
     secondary: `md:min-w-52 min-h-12 rounded-full shadow text-neutral-100 ${scaleTransition} ${isActive && activeStyle}`,
 
     ghost:
-      'bg-inherit font-semibold rounded-full text-neutral-400 ring-neutral-400  focus:ring-neutral-500 focus:text-neutral-300 hover:text-neutral-100 ring-2 hover:ring-neutral-500',
+      'bg-inherit font-semibold rounded-full text-neutral-400 ring-neutral-400  focus:ring-neutral-500 focus:text-neutral-300 hover:text-neutral-100 ring-2 hover:ring-neutral-500 min-w-18',
 
     danger: 'text-rose-600 hover:text-rose-700',
   };
@@ -28,8 +28,8 @@ function Button({
     <button
       className={cn(
         className,
-        variantStyle[variant],
-        'flex cursor-pointer items-center justify-center gap-2 px-5 py-2 text-base transition-all duration-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 sm:text-xl',
+        style[variant],
+        'flex cursor-pointer items-center justify-center gap-2 px-1 py-2 text-sm transition-all duration-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 sm:px-5 sm:text-lg md:text-xl',
       )}
       {...props}
     >

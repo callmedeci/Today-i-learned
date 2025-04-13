@@ -5,8 +5,10 @@ import { CalendarDays } from 'lucide-react';
 import { useOptimistic, useTransition } from 'react';
 import { Link } from 'react-router';
 import Badge from './ui/Badge';
+import { motion as m } from 'motion/react';
+import { categories } from '@/lib/constants';
 
-function FactsItem({ fact }) {
+function FactsItem({ fact, i }) {
   const [, startTransition] = useTransition();
   const [optimiticFact, optimisticUpdate] = useOptimistic(
     fact,
@@ -30,6 +32,9 @@ function FactsItem({ fact }) {
   } = optimiticFact;
 
   const isDisputed = votesInteresting + votesMindblowing < votesFalse;
+  const categoryIcon = categories
+    .filter((cat) => cat.label === category)
+    .at(0).icon;
 
   function handleUpdateVotes(typeOfVote) {
     // Optimistically update first
@@ -53,7 +58,13 @@ function FactsItem({ fact }) {
   }
 
   return (
-    <li className='rounded-xl bg-neutral-700 px-5 py-2 text-neutral-100 shadow transition-shadow hover:shadow-md'>
+    <m.li
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: i * 0.05, duration: 0.2 }}
+      className='rounded-xl bg-neutral-700 px-3 py-2 text-neutral-100 shadow transition-shadow hover:shadow-md sm:px-5'
+    >
       <time className='flex flex-1 items-center gap-1 text-xs text-neutral-400 sm:text-sm'>
         <CalendarDays className='size-5' />
         {formatDate(createdAt)}
@@ -79,12 +90,13 @@ function FactsItem({ fact }) {
         <span
           className={`${categoryColor(
             category,
-          )} font-sono-extra-bold rounded-full px-3 py-1 uppercase shadow`}
+          )} font-sono-extra-bold flex items-center gap-1 rounded-full px-2 py-1 uppercase shadow sm:px-3`}
         >
+          {categoryIcon}
           {category}
         </span>
 
-        <div className='flex gap-2'>
+        <div className='flex items-center gap-2'>
           <Badge onClick={() => handleUpdateVotes('votesInteresting')}>
             {votesInteresting} 👍🏻
           </Badge>
@@ -96,7 +108,7 @@ function FactsItem({ fact }) {
           </Badge>
         </div>
       </div>
-    </li>
+    </m.li>
   );
 }
 

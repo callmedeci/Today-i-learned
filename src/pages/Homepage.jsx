@@ -10,7 +10,7 @@ function Homepage() {
 
       <FactsOperations />
 
-      <div className='flex w-full flex-col gap-5 lg:grid lg:grid-cols-13'>
+      <div className='flex w-full flex-col gap-5 xl:grid xl:grid-cols-13'>
         <Categories />
         <FactsList />
       </div>

@@ -93,7 +93,7 @@ function CreateFactForm() {
         error={formState.errors?.category?.message}
       />
 
-      <div className='flex justify-between gap-5 md:gap-8'>
+      <div className='flex justify-between gap-2 md:gap-8'>
         <Button className='flex-1' disabled={isPending}>
           {isPending ? <Spinner /> : 'post'}
         </Button>

@@ -4,9 +4,9 @@ function Icon() {
       <img
         src='/images/logo.png'
         alt='logo picture'
-        className='size-14 sm:size-16 xl:size-20'
+        className='size-12 sm:size-16 xl:size-20'
       />
-      <h1 className='font-sono-bold text-xl uppercase sm:text-3xl md:text-4xl xl:text-6xl'>
+      <h1 className='font-sono-bold text-lg uppercase sm:text-3xl md:text-4xl xl:text-6xl'>
         Today I learned
       </h1>
     </div>
