@@ -5,10 +5,12 @@ import { Link } from 'react-router';
 import { FaGithub, FaGoogle } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
 import { useLoginWithPassword } from '@/auth/useLoginWithPassword';
+import { useLoginWithGithub } from '@/auth/useLoginWithGithub';
 
 function Login() {
   const { register, handleSubmit, formState } = useForm();
   const { isPending, login } = useLoginWithPassword();
+  const { loginWithGithub } = useLoginWithGithub();
 
   function onSubmit(value) {
     login(value);
@@ -41,6 +43,7 @@ function Login() {
           icon={<FaGithub />}
           variant='ghost'
           className='flex-1'
+          onClick={loginWithGithub}
         >
           Github
         </Button>
