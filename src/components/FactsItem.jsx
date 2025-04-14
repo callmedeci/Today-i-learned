@@ -6,7 +6,7 @@ import { useOptimistic, useTransition } from 'react';
 import { Link } from 'react-router';
 import Badge from './ui/Badge';
 import { motion as m } from 'motion/react';
-import { categories } from '@/lib/constants';
+import { categories } from '@/constant/constants';
 
 function FactsItem({ fact, i }) {
   const [, startTransition] = useTransition();

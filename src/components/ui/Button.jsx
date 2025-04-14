@@ -9,12 +9,12 @@ function Button({
   ...props
 }) {
   const scaleTransition =
-    'scale-100 uppercase hover:-rotate-1 hover:-translate-y-0.5 tracking-widest hover:scale-105 focus:-rotate-1 focus:-translate-y-0.5 focus:scale-105';
+    'scale-100 uppercase hover:-rotate-1 hover:-translate-y-0.5 tracking-widest hover:scale-103 focus:-rotate-1 focus:-translate-y-0.5 focus:scale-105';
 
   const activeStyle = '-rotate-1 -translate-y-0.5 scale-105';
 
   const style = {
-    primary: `bg-neutral-600 font-semibold min-h-12 rounded-full shadow text-neutral-100 focus:ring-2 focus:ring-neutral-500 hover:ring-2 hover:ring-neutral-500 ${scaleTransition} ${isActive && activeStyle}`,
+    primary: `bg-neutral-600 font-semibold min-h-12 rounded-full shadow text-neutral-300 focus:ring-2 focus:ring-neutral-500 hover:ring-2 hover:ring-neutral-500 focus:text-neutral-100 hover:text-neutral-100 ${scaleTransition} ${isActive && activeStyle}`,
 
     secondary: `md:min-w-52 min-h-12 rounded-full shadow text-neutral-100 ${scaleTransition} ${isActive && activeStyle}`,
 

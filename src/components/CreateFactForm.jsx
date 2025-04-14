@@ -1,5 +1,5 @@
 import { useCreateEditFact } from '@/hooks/useCreateEditFact';
-import { categories } from '@/lib/constants';
+import { categories } from '@/constant/constants';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Button from './ui/Button';

@@ -1,5 +1,5 @@
 import { useUrl } from '@/hooks/useUrl';
-import { categories } from '@/lib/constants';
+import { categories } from '@/constant/constants';
 import { categoryColor } from '@/lib/utils';
 import { motion as m } from 'motion/react';
 import Button from './ui/Button';

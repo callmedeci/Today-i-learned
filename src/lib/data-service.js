@@ -8,18 +8,6 @@ export async function getFacts() {
   return data;
 }
 
-export async function createNewFact(fact) {
-  const { data, error } = await supabase
-    .from('facts')
-    .insert([fact])
-    .select()
-    .single();
-
-  if (error) throw new Error('Failed to create a new fact');
-
-  return data;
-}
-
 export async function createEditFact(factToEdit, newFact) {
   let query = supabase.from('facts');
 

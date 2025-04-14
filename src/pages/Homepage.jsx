@@ -5,7 +5,7 @@ import Header from '@/components/Header';
 
 function Homepage() {
   return (
-    <section className='mx-auto flex max-w-7xl flex-col px-2 py-5'>
+    <>
       <Header />
 
       <FactsOperations />
@@ -14,7 +14,7 @@ function Homepage() {
         <Categories />
         <FactsList />
       </div>
-    </section>
+    </>
   );
 }
 
