@@ -1,8 +1,15 @@
-import { CheckCircle2, XCircle } from 'lucide-react';
 import { lazy } from 'react';
 import { Toaster } from 'react-hot-toast';
+import { CheckCircle2, XCircle } from 'lucide-react';
 import { BrowserRouter, Route, Routes } from 'react-router';
 
+import Layout from './components/ui/Layout';
+
+import ProtectedRoutes from './components/ProtectedRoutes';
+import CheckLoggedInUser from './components/CheckLoggedInUser';
+
+const CreateAccount = lazy(() => import('./pages/CreateAccount'));
+const Login = lazy(() => import('./pages/Login'));
 const Homepage = lazy(() => import('./pages/Homepage'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
@@ -36,7 +43,19 @@ function App() {
 
       <BrowserRouter>
         <Routes>
-          <Route element={<Homepage />} index />
+          {/* Main Layout */}
+          <Route element={<Layout />}>
+            {/* <Main Routes (Protected routes) */}
+            <Route element={<ProtectedRoutes />}>
+              <Route index element={<Homepage />} />
+            </Route>
+
+            {/* Login Routes */}
+            <Route element={<CheckLoggedInUser />}>
+              <Route path='login' element={<Login />} />
+              <Route path='create-account' element={<CreateAccount />} />
+            </Route>
+          </Route>
 
           <Route element={<NotFound />} path='*' />
         </Routes>
