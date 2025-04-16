@@ -13,7 +13,7 @@ export const categories = [
   {
     label: 'technology',
     value: 'technology',
-    icon: <Cpu className='md:5ize-7 6 xl:size-7ize-4' />,
+    icon: <Cpu className='size-4 md:size-6 xl:size-7' />,
   },
   {
     label: 'science',
