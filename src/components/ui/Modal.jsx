@@ -46,7 +46,7 @@ function Open({ children, modalId }) {
   return cloneElement(children, { onClick: () => open(modalId) });
 }
 
-function Window({ children, modalId, title }) {
+function Window({ children, modalId, title, titleIcon }) {
   const { close, modal } = useModalContext();
 
   return createPortal(
@@ -68,7 +68,8 @@ function Window({ children, modalId, title }) {
             className='relative mx-auto w-full max-w-4xl rounded-lg bg-neutral-700 p-5 shadow md:p-7'
           >
             <div className='mb-4 flex items-center justify-between'>
-              <h3 className='font-sono-extra-bold text-2xl uppercase'>
+              <h3 className='font-sono-extra-bold flex items-center gap-1 text-2xl text-neutral-300 uppercase'>
+                {titleIcon}
                 {title}
               </h3>
 

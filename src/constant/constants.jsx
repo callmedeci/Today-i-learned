@@ -13,41 +13,41 @@ export const categories = [
   {
     label: 'technology',
     value: 'technology',
-    icon: <Cpu className='size-4 md:size-7' />,
+    icon: <Cpu className='md:5ize-7 6 xl:size-7ize-4' />,
   },
   {
     label: 'science',
     value: 'science',
-    icon: <Atom className='size-4 md:size-7' />,
+    icon: <Atom className='size-4 md:size-6 xl:size-7' />,
   },
   {
     label: 'finance',
     value: 'finance',
-    icon: <Bitcoin className='size-4 md:size-7' />,
+    icon: <Bitcoin className='size-4 md:size-6 xl:size-7' />,
   },
   {
     label: 'society',
     value: 'society',
-    icon: <Speech className='size-4 md:size-7' />,
+    icon: <Speech className='size-4 md:size-6 xl:size-7' />,
   },
   {
     label: 'entertainment',
     value: 'entertainment',
-    icon: <Drama className='size-4 md:size-7' />,
+    icon: <Drama className='size-4 md:size-6 xl:size-7' />,
   },
   {
     label: 'health',
     value: 'health',
-    icon: <Activity className='size-4 md:size-7' />,
+    icon: <Activity className='size-4 md:size-6 xl:size-7' />,
   },
   {
     label: 'history',
     value: 'history',
-    icon: <Book className='size-4 md:size-7' />,
+    icon: <Book className='size-4 md:size-6 xl:size-7' />,
   },
   {
     label: 'news',
     value: 'news',
-    icon: <Newspaper className='size-4 md:size-7' />,
+    icon: <Newspaper className='size-4 md:size-6 xl:size-7' />,
   },
 ];

@@ -1,4 +1,4 @@
-import { Boxes } from 'lucide-react';
+import { Boxes, Notebook } from 'lucide-react';
 import CreateFactForm from './CreateFactForm';
 import Icon from './Icon';
 import Button from './ui/Button';
@@ -16,7 +16,11 @@ function Header() {
           </Button>
         </Modal.Open>
 
-        <Modal.Window modalId='create-fact' title='Share a fact'>
+        <Modal.Window
+          modalId='create-fact'
+          title='Share a fact'
+          titleIcon={<Notebook className='size-4 md:size-6 xl:size-7' />}
+        >
           <CreateFactForm />
         </Modal.Window>
       </Modal>

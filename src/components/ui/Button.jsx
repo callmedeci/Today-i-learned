@@ -21,7 +21,7 @@ function Button({
     ghost:
       'bg-inherit font-semibold rounded-full text-neutral-400 ring-neutral-400  focus:ring-neutral-500 focus:text-neutral-300 hover:text-neutral-100 ring-2 hover:ring-neutral-500 min-w-18',
 
-    danger: 'text-rose-600 hover:text-rose-700',
+    danger: 'text-red-500 hover:text-red-600',
   };
 
   return (
@@ -29,7 +29,7 @@ function Button({
       className={cn(
         className,
         style[variant],
-        'flex cursor-pointer items-center justify-center gap-2 px-1 py-2 text-sm transition-all duration-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 sm:px-5 sm:text-lg md:text-xl',
+        'group flex cursor-pointer items-center justify-center gap-2 px-1 py-2 text-sm transition-all duration-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 sm:px-5 sm:text-lg md:text-xl',
       )}
       {...props}
     >

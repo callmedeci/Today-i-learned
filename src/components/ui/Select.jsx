@@ -11,9 +11,9 @@ function Select({
 }) {
   const style = {
     primary:
-      'bg-neutral-500 text-sm sm:text-base md:text-xl text-neutral-200 placeholder:text-neutral-300/50 focus:ring-neutral-400',
+      'bg-neutral-600 text-sm sm:text-base md:text-xl text-neutral-300 placeholder:text-neutral-300/50 ring-neutral-400 focus-within:text-neutral-100',
     secondary:
-      'bg-neutral-700 text-sm sm:text-base md:text-xl text-neutral-300 placeholder:text-neutral-400/50 focus:ring-neutral-500',
+      'bg-neutral-700 text-sm sm:text-base md:text-xl text-neutral-300 placeholder:text-neutral-400/50 ring-neutral-500',
   };
 
   return (
@@ -40,7 +40,7 @@ function Select({
         ))}
       </select>
 
-      {error && <p className='ml-2 text-sm font-bold text-rose-600'>{error}</p>}
+      {error && <p className='ml-2 font-bold text-red-500'>{error}</p>}
     </div>
   );
 }

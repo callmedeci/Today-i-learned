@@ -1,20 +1,25 @@
-import { useCreateEditFact } from '@/hooks/useCreateEditFact';
 import { categories } from '@/constant/constants';
+import { useCreateEditFact } from '@/hooks/useCreateEditFact';
+import { BookText, LinkIcon, RotateCcw } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import Button from './ui/Button';
 import Input from './ui/Input';
 import { useModalContext } from './ui/Modal';
-import Spinner from './ui/Spinner';
-import toast from 'react-hot-toast';
 import Select from './ui/Select';
+import Spinner from './ui/Spinner';
+import { createFactSchema } from '@/schema';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 function CreateFactForm() {
+  const { handleSubmit, register, formState, reset } = useForm({
+    resolver: zodResolver(createFactSchema),
+  });
+
   const [textLength, setTextLength] = useState(0);
 
-  const { handleSubmit, register, formState, reset } = useForm();
   const { close } = useModalContext();
-
   const { createEditFact, isPending } = useCreateEditFact();
 
   function onSubmit(values) {
@@ -24,6 +29,9 @@ function CreateFactForm() {
         onSuccess() {
           toast.success('Your fact created successfully!');
           close();
+        },
+        onError(error) {
+          toast.error(error.message);
         },
       },
     );
@@ -37,17 +45,7 @@ function CreateFactForm() {
       <div className='flex w-full gap-2'>
         <Input
           type='text'
-          {...register('text', {
-            required: { value: true, message: 'Fact required' },
-            minLength: {
-              value: 15,
-              message: 'Too short (min 15 chars)',
-            },
-            maxLength: {
-              value: 200,
-              message: 'Too long (max 200 chars)',
-            },
-          })}
+          {...register('text')}
           onChange={(e) =>
             setTextLength((text) =>
               Number(e.target.value.length) <= 200
@@ -58,8 +56,8 @@ function CreateFactForm() {
           placeholder='Share a fact with the world...'
           className='flex-1'
           disabled={isPending}
-          maxLength={200}
           error={formState.errors?.text?.message}
+          icon={<BookText className='size-4 md:size-6 xl:size-7' />}
         />
 
         <span className='font-sono-extra-bold text-lg text-neutral-400'>
@@ -68,25 +66,15 @@ function CreateFactForm() {
       </div>
 
       <Input
-        type='url'
-        {...register('source', {
-          required: { value: true, message: 'Source required' },
-          pattern: {
-            value: /^(https?:\/\/|www\.).+/,
-            message: 'Enter a valid URL',
-          },
-        })}
-        disabled={isPending}
+        {...register('source')}
         placeholder='trustworthy source...'
+        disabled={isPending}
         error={formState.errors?.source?.message}
+        icon={<LinkIcon className='size-4 md:size-6 xl:size-7' />}
       />
 
       <Select
-        {...register('category', {
-          required: { value: true, message: 'Category required' },
-          validate: (value) =>
-            value !== 'Choose Category:' || 'Pick a category',
-        })}
+        {...register('category')}
         defaultValue='Choose Category:'
         options={categories}
         disabled={isPending}
@@ -103,6 +91,7 @@ function CreateFactForm() {
           onClick={reset}
           type='button'
           variant='ghost'
+          icon={<RotateCcw className='size-4 md:size-6 xl:size-7' />}
         >
           Reset
         </Button>

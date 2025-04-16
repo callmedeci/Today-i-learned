@@ -6,14 +6,14 @@ export function cn(...inputs) {
 }
 
 export function categoryColor(category) {
-  if (category === 'technology') return 'bg-sky-600';
-  if (category === 'science') return 'bg-green-600';
+  if (category === 'technology') return 'bg-sky-700';
+  if (category === 'science') return 'bg-green-700';
   if (category === 'finance') return 'bg-rose-600';
   if (category === 'society') return 'bg-amber-600';
-  if (category === 'entertainment') return 'bg-indigo-600';
-  if (category === 'health') return 'bg-emerald-600';
+  if (category === 'entertainment') return 'bg-indigo-700';
+  if (category === 'health') return 'bg-emerald-700';
   if (category === 'history') return 'bg-orange-600';
-  if (category === 'news') return 'bg-violet-600';
+  if (category === 'news') return 'bg-purple-700';
 }
 
 export const formatDate = (str) =>

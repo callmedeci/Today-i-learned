@@ -25,3 +25,18 @@ export const loginSchema = z.object({
   email: z.string().email({ message: 'Invalid email' }),
   password: z.string().min(8, { message: 'Min 8 chars' }),
 });
+
+export const createFactSchema = z
+  .object({
+    text: z
+      .string()
+      .min(15, { message: 'Min 15 chars' })
+      .max(200, { message: 'Max 200 chars' }),
+
+    source: z.string().url({ message: 'Invalid URL' }),
+    category: z.string(),
+  })
+  .refine((values) => values.category !== 'Choose Category:', {
+    message: 'Pick a category',
+    path: ['category'],
+  });

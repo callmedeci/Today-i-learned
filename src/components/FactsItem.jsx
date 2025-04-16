@@ -1,7 +1,14 @@
 import { useCreateEditFact } from '@/hooks/useCreateEditFact';
 import { categoryColor, formatDate } from '@/lib/utils';
 import { useQueryClient } from '@tanstack/react-query';
-import { CalendarDays } from 'lucide-react';
+import {
+  Ban,
+  Brain,
+  CalendarDays,
+  LinkIcon,
+  ShieldBan,
+  ThumbsUp,
+} from 'lucide-react';
 import { useOptimistic, useTransition } from 'react';
 import { Link } from 'react-router';
 import Badge from './ui/Badge';
@@ -70,10 +77,10 @@ function FactsItem({ fact, i }) {
         {formatDate(createdAt)}
       </time>
 
-      <p className='my-3 text-lg md:text-xl'>
+      <p className='my-3 text-base md:text-lg xl:text-xl'>
         {isDisputed ? (
-          <span className='text-sm font-semibold text-rose-500 uppercase md:text-base'>
-            [⛔ disputed]
+          <span className='text-s1 flex items-center gap-1 font-semibold text-rose-500 uppercase md:text-base'>
+            [<Ban className='size-5' /> disputed]
           </span>
         ) : null}{' '}
         {text}{' '}
@@ -96,15 +103,16 @@ function FactsItem({ fact, i }) {
           {category}
         </span>
 
-        <div className='flex items-center gap-2'>
+        <div className='flex items-center gap-2 text-neutral-100'>
           <Badge onClick={() => handleUpdateVotes('votesInteresting')}>
-            {votesInteresting} 👍🏻
+            {votesInteresting}{' '}
+            <ThumbsUp className='size-4 md:size-6 xl:size-7' />
           </Badge>
           <Badge onClick={() => handleUpdateVotes('votesMindblowing')}>
-            {votesMindblowing} 🤯
+            {votesMindblowing} <Brain className='size-4 md:size-6 xl:size-7' />
           </Badge>
           <Badge onClick={() => handleUpdateVotes('votesFalse')}>
-            {votesFalse} ⛔
+            {votesFalse} <Ban className='size-4 md:size-6 xl:size-7' />
           </Badge>
         </div>
       </div>
