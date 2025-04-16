@@ -1,15 +1,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router';
+import { loginWithGoogle as loginWithGoogleApi } from './apiAuth';
 
-import { loginWithGithub as loginWithGithubApi } from './apiAuth';
-
-export function useLoginWithGithub() {
+export function useLoginWithGoogle() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const { mutate: loginWithGithub, isPending } = useMutation({
-    mutationFn: loginWithGithubApi,
+  const { mutate: loginWithGoogle, isPending } = useMutation({
+    mutationFn: loginWithGoogleApi,
 
     onSuccess(data) {
       queryClient.setQueriesData(['user'], data.user);
@@ -21,5 +20,5 @@ export function useLoginWithGithub() {
     },
   });
 
-  return { loginWithGithub, isPending };
+  return { loginWithGoogle, isPending };
 }

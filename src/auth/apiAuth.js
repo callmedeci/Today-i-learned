@@ -12,6 +12,22 @@ export async function getCurrentUser() {
   return data?.user;
 }
 
+export async function createAccount(email, password, fullName) {
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        fullName,
+      },
+    },
+  });
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
 export async function loginWithPassword(email, password) {
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
@@ -26,6 +42,16 @@ export async function loginWithPassword(email, password) {
 export async function loginWithGithub() {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'github',
+  });
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
+export async function loginWithGoogle() {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
   });
 
   if (error) throw new Error(error.message);
