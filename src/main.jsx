@@ -1,24 +1,17 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { ErrorBoundary } from 'react-error-boundary';
 import App from './App.jsx';
 import './index.css';
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 0,
-    },
-  },
-});
+import ErrorFallBack from './components/ErrorFallBack.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools />
-
+    <ErrorBoundary
+      FallbackComponent={ErrorFallBack}
+      onReset={() => window.location.replace('/')}
+    >
       <App />
-    </QueryClientProvider>
+    </ErrorBoundary>
   </StrictMode>,
 );

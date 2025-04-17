@@ -1,21 +1,33 @@
 import { lazy } from 'react';
 import { Toaster } from 'react-hot-toast';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { CheckCircle2, XCircle } from 'lucide-react';
 import { BrowserRouter, Route, Routes } from 'react-router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import Layout from './components/ui/Layout';
 
-import ProtectedRoutes from './components/ProtectedRoutes';
 import CheckLoggedInUser from './components/CheckLoggedInUser';
+import ProtectedRoutes from './components/ProtectedRoutes';
 
 const CreateAccount = lazy(() => import('./pages/CreateAccount'));
 const Login = lazy(() => import('./pages/Login'));
 const Homepage = lazy(() => import('./pages/Homepage'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 0,
+    },
+  },
+});
+
 function App() {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools />
+
       <Toaster
         containerClassName='m-2'
         position='top-center'
@@ -60,7 +72,7 @@ function App() {
           <Route element={<NotFound />} path='*' />
         </Routes>
       </BrowserRouter>
-    </>
+    </QueryClientProvider>
   );
 }
 
