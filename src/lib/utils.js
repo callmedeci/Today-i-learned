@@ -22,3 +22,28 @@ export const formatDate = (str) =>
     month: 'long',
     year: 'numeric',
   }).format(new Date(str));
+
+export function getUpdatedUserVotes(userVotes = [], factId, typeOfVote) {
+  const existingVote = userVotes.find((vote) => vote.factId === factId);
+
+  if (existingVote) {
+    return userVotes.map((vote) =>
+      vote.factId === factId ? { ...vote, typeOfVote } : vote,
+    );
+  }
+
+  return [...userVotes, { factId, typeOfVote }];
+}
+
+export function getUpdatedVoteCounts(fact, userVote, typeOfVote) {
+  const updates = {};
+
+  if (userVote && userVote.typeOfVote !== typeOfVote) {
+    updates[userVote.typeOfVote] = fact[userVote.typeOfVote] - 1;
+    updates[typeOfVote] = fact[typeOfVote] + 1;
+  } else {
+    updates[typeOfVote] = fact[typeOfVote] + 1;
+  }
+
+  return updates;
+}

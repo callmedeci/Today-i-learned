@@ -6,11 +6,12 @@ export function useCreateEditFact() {
   const queryClient = useQueryClient();
 
   const { mutate: createEditFact, isPending } = useMutation({
-    mutationFn: ({ factToEdit, newFact }) =>
-      createEditFactApi(factToEdit, newFact),
+    mutationFn: ({ factToEdit, newFact, options }) =>
+      createEditFactApi(factToEdit, newFact, options),
 
     onSuccess() {
       queryClient.invalidateQueries(['facts']);
+      queryClient.invalidateQueries(['user']);
     },
 
     onError(error) {

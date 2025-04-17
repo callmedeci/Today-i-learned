@@ -17,7 +17,7 @@ export function useFacts() {
       : facts.filter((fact) => fact.category === category);
 
   //Sort facts
-  const sortBy = activeSort ?? 'createdAt-desc';
+  const sortBy = activeSort ?? 'id-desc';
   const [field, direction] = sortBy.split('-');
   const modifier = direction === 'asc' ? 1 : -1;
 

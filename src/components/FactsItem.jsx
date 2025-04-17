@@ -1,32 +1,52 @@
+import { categories } from '@/constant/constants';
 import { useCreateEditFact } from '@/hooks/useCreateEditFact';
-import { categoryColor, formatDate } from '@/lib/utils';
-import { useQueryClient } from '@tanstack/react-query';
 import {
-  Ban,
-  Brain,
-  CalendarDays,
-  LinkIcon,
-  ShieldBan,
-  ThumbsUp,
-} from 'lucide-react';
-import { useOptimistic, useTransition } from 'react';
+  categoryColor,
+  formatDate,
+  getUpdatedUserVotes,
+  getUpdatedVoteCounts,
+} from '@/lib/utils';
+import { useQueryClient } from '@tanstack/react-query';
+import { Ban, Brain, CalendarDays, ThumbsUp } from 'lucide-react';
+import { motion as m } from 'motion/react';
+import { startTransition, useOptimistic } from 'react';
 import { Link } from 'react-router';
 import Badge from './ui/Badge';
-import { motion as m } from 'motion/react';
-import { categories } from '@/constant/constants';
 
-function FactsItem({ fact, i }) {
-  const [, startTransition] = useTransition();
-  const [optimiticFact, optimisticUpdate] = useOptimistic(
-    fact,
-    (curFact, typeOfVote) => ({
-      ...curFact,
-      [typeOfVote]: curFact[typeOfVote] + 1,
-    }),
-  );
-
+function FactsItem({ fact, i, user }) {
   const queryClient = useQueryClient();
   const { createEditFact } = useCreateEditFact();
+
+  const [optimiticFact, optimisticUpdateFact] = useOptimistic(
+    fact,
+    (curFact, typeOfVote) => {
+      const userVote = user.user_metadata.userVotes?.find(
+        (vote) => vote.factId === curFact.id,
+      );
+      return {
+        ...curFact,
+        ...getUpdatedVoteCounts(curFact, userVote, typeOfVote),
+      };
+    },
+  );
+  const [optimiticUser, optimisticUpdateUser] = useOptimistic(
+    user,
+    (user, typeOfVote) => {
+      const updatedVotes = getUpdatedUserVotes(
+        user.user_metadata.userVotes,
+        fact.id,
+        typeOfVote,
+      );
+
+      return {
+        ...user,
+        user_metadata: {
+          ...user.user_metadata,
+          userVotes: updatedVotes,
+        },
+      };
+    },
+  );
 
   const {
     category,
@@ -43,23 +63,45 @@ function FactsItem({ fact, i }) {
     .filter((cat) => cat.label === category)
     .at(0).icon;
 
+  const userVotes = optimiticUser.user_metadata.userVotes ?? [];
+  const userVote = userVotes.find((vote) => vote.factId === fact.id);
+  const isInteresting = userVote?.typeOfVote === 'votesInteresting';
+  const isMindblowing = userVote?.typeOfVote === 'votesMindblowing';
+  const isFalse = userVote?.typeOfVote === 'votesFalse';
+
   function handleUpdateVotes(typeOfVote) {
-    // Optimistically update first
+    if (typeOfVote === userVote.typeOfVote) return;
+
+    const factId = fact.id;
+
+    const updatedFact = {
+      ...fact,
+      ...getUpdatedVoteCounts(fact, userVote, typeOfVote),
+    };
+
+    const updatedUserVotes = getUpdatedUserVotes(userVotes, factId, typeOfVote);
+
     startTransition(() => {
-      optimisticUpdate(typeOfVote);
+      optimisticUpdateFact(typeOfVote);
+      optimisticUpdateUser(typeOfVote);
     });
 
-    queryClient.setQueryData(['facts'], (oldData) =>
-      oldData.map((f) =>
-        f.id === fact.id ? { ...f, [typeOfVote]: fact[typeOfVote] + 1 } : f,
-      ),
+    queryClient.setQueryData(['facts'], (oldFacts) =>
+      oldFacts.map((f) => (f.id === factId ? updatedFact : f)),
     );
 
-    //Then Supabase
+    queryClient.setQueryData(['user'], (oldUser) => ({
+      ...oldUser,
+      user_metadata: {
+        ...oldUser.user_metadata,
+        userVotes: updatedUserVotes,
+      },
+    }));
+
     createEditFact({
-      factToEdit: {
-        ...fact,
-        [typeOfVote]: fact[typeOfVote] + 1,
+      factToEdit: updatedFact,
+      options: {
+        userVotes: updatedUserVotes,
       },
     });
   }
@@ -103,15 +145,24 @@ function FactsItem({ fact, i }) {
           {category}
         </span>
 
-        <div className='flex items-center gap-2 text-neutral-100'>
-          <Badge onClick={() => handleUpdateVotes('votesInteresting')}>
-            {votesInteresting}{' '}
-            <ThumbsUp className='size-4 md:size-6 xl:size-7' />
+        <div className='flex items-center gap-2 text-neutral-400'>
+          <Badge
+            isActive={isInteresting}
+            onClick={() => handleUpdateVotes('votesInteresting')}
+          >
+            {votesInteresting}
+            <ThumbsUp className='size-4 transition-all duration-300 md:size-6 xl:size-7' />
           </Badge>
-          <Badge onClick={() => handleUpdateVotes('votesMindblowing')}>
+          <Badge
+            isActive={isMindblowing}
+            onClick={() => handleUpdateVotes('votesMindblowing')}
+          >
             {votesMindblowing} <Brain className='size-4 md:size-6 xl:size-7' />
           </Badge>
-          <Badge onClick={() => handleUpdateVotes('votesFalse')}>
+          <Badge
+            isActive={isFalse}
+            onClick={() => handleUpdateVotes('votesFalse')}
+          >
             {votesFalse} <Ban className='size-4 md:size-6 xl:size-7' />
           </Badge>
         </div>

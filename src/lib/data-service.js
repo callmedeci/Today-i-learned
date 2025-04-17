@@ -8,7 +8,13 @@ export async function getFacts() {
   return data;
 }
 
-export async function createEditFact(factToEdit, newFact) {
+export async function createEditFact(factToEdit, newFact, options) {
+  const { error: updateError } = await supabase.auth.updateUser({
+    data: { ...options },
+  });
+
+  if (updateError) throw new Error('Failed to update fact');
+
   let query = supabase.from('facts');
 
   if (factToEdit) query = query.update(factToEdit).eq('id', factToEdit.id);

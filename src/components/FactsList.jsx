@@ -2,9 +2,11 @@ import { motion as m } from 'motion/react';
 import { useFacts } from '@/hooks/useFacts';
 import FactsItem from './FactsItem';
 import Loading from './ui/Loading';
+import { useUser } from '@/auth/useUser';
 
 function FactsList() {
   const [facts, isPending] = useFacts();
+  const { user } = useUser();
 
   if (isPending) return <Loading />;
 
@@ -15,7 +17,7 @@ function FactsList() {
           No facts found for related category! Try other ones ;)
         </li>
       ) : (
-        facts.map((fact) => <FactsItem key={fact.id} fact={fact} />)
+        facts.map((fact) => <FactsItem key={fact.id} fact={fact} user={user} />)
       )}
     </m.ul>
   );
