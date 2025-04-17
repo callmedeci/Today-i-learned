@@ -70,7 +70,7 @@ function FactsItem({ fact, i, user }) {
   const isFalse = userVote?.typeOfVote === 'votesFalse';
 
   function handleUpdateVotes(typeOfVote) {
-    if (typeOfVote === userVote.typeOfVote) return;
+    if (typeOfVote === userVote?.typeOfVote) return;
 
     const factId = fact.id;
 
