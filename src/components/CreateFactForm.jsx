@@ -25,17 +25,12 @@ function CreateFactForm() {
   const { createEditFact, isPending } = useCreateEditFact();
 
   function onSubmit(values) {
-    console.log(values);
-
     createEditFact(
-      { factToEdit: null, newFact: values },
+      { factToEdit: null, newFact: values, options: null },
       {
         onSuccess() {
           toast.success('Your fact created successfully!');
           close();
-        },
-        onError(error) {
-          toast.error(error.message);
         },
       },
     );
