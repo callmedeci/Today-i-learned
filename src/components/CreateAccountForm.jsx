@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
-import { CircleUser, KeyRound, LogIn, Mail, Send } from 'lucide-react';
+import { CircleUser, Eye, KeyRound, LogIn, Mail, Send } from 'lucide-react';
 import { Link } from 'react-router';
 
 import LoginWithProviders from './LoginWithProviders';
@@ -11,9 +11,13 @@ import Spinner from './ui/Spinner';
 
 import { useCreateAccount } from '@/auth/useCreateAccount';
 import { createAccountSchema } from '@/schema';
+import { useState } from 'react';
 import Icon from './Icon';
+import PasswordToggleInput from './ui/PasswordToggleInput';
 
 function CreateAccountForm() {
+  const [inputType, setInputType] = useState('password');
+
   const {
     register,
     handleSubmit,
@@ -32,8 +36,7 @@ function CreateAccountForm() {
       <Icon />
 
       <h2 className='flex items-center gap-2 text-lg font-semibold uppercase sm:text-xl md:text-2xl xl:text-4xl'>
-        <LogIn className='size-5 md:size-7 xl:size-8' />
-        <span>Create new account</span>
+        Create new account
       </h2>
 
       <hr className='rounded border-2 border-neutral-600' />
@@ -60,34 +63,24 @@ function CreateAccountForm() {
           icon={<Mail className='size-4 md:size-6 xl:size-7' />}
         />
 
-        <Input
+        <PasswordToggleInput
           {...register('password')}
           error={errors?.password?.message}
           disabled={isPending}
-          type='password'
           placeholder='password'
-          icon={<KeyRound className='size-4 md:size-6 xl:size-7' />}
         />
 
-        <Input
+        <PasswordToggleInput
           {...register('confirmPassword')}
           error={errors?.confirmPassword?.message}
           disabled={isPending}
-          type='password'
           placeholder='Confirm password'
-          icon={<KeyRound className='size-4 md:size-6 xl:size-7' />}
         />
       </div>
 
       <Button
         disabled={isPending}
-        icon={
-          isPending ? (
-            <Spinner />
-          ) : (
-            <Send className='size-4 md:size-6 xl:size-7' />
-          )
-        }
+        icon={isPending && <Spinner />}
         className='col-span-2'
       >
         {isPending ? 'Loading...' : 'Create Account'}

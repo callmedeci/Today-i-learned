@@ -13,6 +13,7 @@ function LoginWithProviders({ isPending }) {
   return (
     <div className='flex flex-col gap-5 sm:flex-row'>
       <Button
+        type='button'
         disabled={isPending}
         icon={<FcGoogle className='size-4 md:size-6 xl:size-7' />}
         variant='ghost'
@@ -22,6 +23,7 @@ function LoginWithProviders({ isPending }) {
         Google
       </Button>
       <Button
+        type='button'
         disabled={isPending}
         icon={<FaGithub className='size-4 md:size-6 xl:size-7' />}
         variant='ghost'
