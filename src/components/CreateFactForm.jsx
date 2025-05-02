@@ -13,9 +13,11 @@ import { createFactSchema } from '@/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 function CreateFactForm() {
-  const { handleSubmit, register, formState, reset } = useForm({
-    resolver: zodResolver(createFactSchema),
-  });
+  const { handleSubmit, register, formState, reset, watch, setValue } = useForm(
+    {
+      resolver: zodResolver(createFactSchema),
+    },
+  );
 
   const [textLength, setTextLength] = useState(0);
 
@@ -23,6 +25,8 @@ function CreateFactForm() {
   const { createEditFact, isPending } = useCreateEditFact();
 
   function onSubmit(values) {
+    console.log(values);
+
     createEditFact(
       { factToEdit: null, newFact: values },
       {
@@ -74,10 +78,13 @@ function CreateFactForm() {
       />
 
       <Select
-        {...register('category')}
-        defaultValue='Choose Category:'
+        placeHolder='Select a category'
+        register={register}
+        name='category'
         options={categories}
         disabled={isPending}
+        watch={watch}
+        setValue={setValue}
         error={formState.errors?.category?.message}
       />
 

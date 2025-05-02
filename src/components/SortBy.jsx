@@ -16,16 +16,13 @@ function SortBy() {
   const { readUrl, updateUrl } = useUrl('sortBy');
   const sortBy = readUrl || '';
 
-  function handleChange(e) {
-    updateUrl(e.target.value);
-  }
-
   return (
     <Select
+      placeHolder='Choose a category'
       variant='secondary'
       options={options}
       value={sortBy}
-      onChange={handleChange}
+      onChange={updateUrl}
     />
   );
 }
