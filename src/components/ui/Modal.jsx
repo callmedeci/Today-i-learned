@@ -3,6 +3,7 @@ import { AnimatePresence, motion as m } from 'motion/react';
 import { cloneElement, createContext, use, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Button from './Button';
+import { useClickOutSide } from '@/hooks/useClickOutSide';
 
 const ModalContext = createContext();
 
@@ -48,6 +49,7 @@ function Open({ children, modalId }) {
 
 function Window({ children, modalId, title, titleIcon }) {
   const { close, modal } = useModalContext();
+  const ref = useClickOutSide(close);
 
   return createPortal(
     <AnimatePresence>
@@ -66,6 +68,7 @@ function Window({ children, modalId, title, titleIcon }) {
             }}
             transition={{ duration: 0.2 }}
             className='relative mx-auto w-full max-w-4xl rounded-lg bg-neutral-700 p-5 shadow md:p-7'
+            ref={ref}
           >
             <div className='mb-4 flex items-center justify-between'>
               <h3 className='font-sono-extra-bold flex items-center gap-1 text-2xl text-neutral-300 uppercase'>
