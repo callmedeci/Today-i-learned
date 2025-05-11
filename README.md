@@ -1,7 +1,7 @@
 # Today I Learned
 
 <p align="center">
-  <img src="./public/images/logo.png" alt="Today I Learned Logo" width="200" />
+  <img src="https://github.com/callmedeci/Today-i-learned/blob/main/public/images/logo.png" alt="Today I Learned Logo" width="200" />
 </p>
 
 A minimal and dynamic web app where users can **share interesting facts** and **react** to others' posts with categories like `mind-blowing`, `dislike`, or just a casual nod. Built with React, Supabase, and TailwindCSS — designed for curiosity and quick interactions.
